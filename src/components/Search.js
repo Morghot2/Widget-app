@@ -1,7 +1,11 @@
-import React, { useState} from "react";
+import React, { useState, useEffect } from "react";
 
 const Search = () => {
     const [term, setTerm] = useState('')
+    console.log("I will be every rerender")
+    useEffect(() => {
+      console.log('I only run once')
+    }, [])
   return (
     <div>
       <div className="ui form">
