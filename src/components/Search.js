@@ -3,8 +3,8 @@ import axios from "axios";
 
 const Search = () => {
   const [term, setTerm] = useState("");
-  const [result, setResult] = useState([]);
-  console.log(result);
+  const [results, setResults] = useState([]);
+  
 
   useEffect(() => {
     const search = async () => {
@@ -17,12 +17,24 @@ const Search = () => {
           srsearch: term,
         },
       });
-      setResult(data.query.search);
+      setResults(data.query.search);
     };
     if (term) {
       search();
     }
   }, [term]);
+
+  const renderedResults = results.map((result) => {
+    return (
+      <div className="item" key={result.pageid}>
+        <div className="content">
+          <div className="header">{result.title}</div>
+          {result.snippet}
+        </div>
+      </div>
+    );
+  });
+
   return (
     <div>
       <div className="ui form">
@@ -35,6 +47,7 @@ const Search = () => {
           ></input>
         </div>
       </div>
+      <div className="ui celled list">{renderedResults}</div>
     </div>
   );
 };
